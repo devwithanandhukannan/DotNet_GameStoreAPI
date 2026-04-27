@@ -12,7 +12,10 @@ List<GameDto> Games = new()
 };
 
 app.MapGet("/", () => Games);
-app.MapGet("/{name}",(string name) =>{return Games.Find(game=>game.Title == name);}).WithName("getName");
+app.MapGet("/{name}",(string name) =>{ 
+    var game = Games.Find(game=>game.Title == name);
+    return game is null ? Results.NoContent() : Results.Ok(game);
+    }).WithName("getName");
 app.MapPost("/",(CreateGameDto createGame) =>
 {
     var game = new GameDto(
@@ -28,6 +31,9 @@ app.MapPost("/",(CreateGameDto createGame) =>
 app.MapPut("/{id}",(Guid id, UpdateGameDto updatedValues) =>
 {
     var gameIndex = Games.FindIndex( game => game.Id == id);
+    if(gameIndex == -1){
+        return Results.NoContent();
+    }
     Games[gameIndex] = new GameDto(
         id,
         updatedValues.Title,
