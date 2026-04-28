@@ -1,7 +1,3 @@
 namespace GameStore.DTOs;
 
-public record UpdateGameDto(
-    string Title,
-    string Genre,
-    decimal Price
-);
+public record UpdateGameDto(string Name, int GenreId, decimal Price);

@@ -1,7 +1,2 @@
 namespace GameStore.DTOs;
-public record GameDto(
-    Guid Id,
-    string Title,
-    string Genre,
-    decimal Price
-);
+public record GameDto(int Id, string Name, string Genre, decimal Price);
