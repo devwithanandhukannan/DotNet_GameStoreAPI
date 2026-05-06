@@ -19,4 +19,10 @@ app.MapPost("/genres", async (Genre newGenre, GameStoreContext db) => {
     await db.SaveChangesAsync();
     return Results.Created($"/genres/{newGenre.Id}", newGenre);
 });
+app.MapPost("/home", async (Genre newGenre, GameStoreContext db) => {
+    db.Genres.Add(newGenre);
+    await db.SaveChangesAsync();
+    return Results.Created($"/genres/{newGenre.Id}", newGenre);
+});
+
 app.Run();
